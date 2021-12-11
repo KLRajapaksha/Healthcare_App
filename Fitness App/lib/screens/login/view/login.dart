@@ -5,15 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends GetView<LoginController> {
+  const LoginScreen({Key? key}) : super(key: key);
 
-  final primaryColor = Color(0xFF414B70);
-  final whiteColor = Color(0xFFFFFFFF);
-  final backgroundGradient = LinearGradient(colors: [Colors.white, Color(0xFFEEEEEC)], begin: Alignment.topCenter, end: Alignment.bottomCenter,);
-  final secondaryColor = Color(0xFF8E92A8);
-  final borderEnableColor = Color(0xFFF6F6F6);
-  final hintTextColor = Color(0xFFB2B5C4);
-  final dropshadowColor = Color(0x1A4B4B4B);
-  final redColor = Color(0xFFFF6666);
 
   Widget getTextFormField({required String hint, required TextEditingController controller, required Function validator, double paddingTop = 8.0, bool obscureText = false}){
     return Padding(
@@ -28,7 +21,7 @@ class LoginScreen extends GetView<LoginController> {
               Radius.circular(12.0),
             ),
           ),
-          errorStyle: TextStyle(color: redColor),
+          errorStyle: const TextStyle(color: ThemeColors.redColor),
           contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
           hintText: hint,
           hintStyle: const TextStyle(color: ThemeColors.grayColor, fontSize: 14.0),
@@ -55,7 +48,7 @@ class LoginScreen extends GetView<LoginController> {
             children: [
               const SizedBox(height: 100),
               Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children:  [
@@ -68,31 +61,36 @@ class LoginScreen extends GetView<LoginController> {
                       ),
                     ],
                   ),
-                  const Text("log in to continue",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: ThemeColors.blackColor),),
+                  const Text("log in to continue",textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 36, fontWeight: FontWeight.w900, color: ThemeColors.blackColor),),
                 ],
               ),
+              const SizedBox(height: 68),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
 
                       Form(
-
                         key: controller.loginFormKey,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
-
-                            getTextFormField(hint: "National ID", controller: controller.usernameController, validator: (value){
+                            const Text("E-mail",textAlign: TextAlign.start,
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: ThemeColors.blackColor),),
+                            getTextFormField(hint: "user@name.com", controller: controller.usernameController, validator: (value){
                               if(value!.isEmpty){
                                 return "Required!";
                               }
                               else{
                                 return null;
                               }
-                            }),
+                            }, paddingTop:4.0),
+                            const SizedBox(height: 24),
+                            const Text("Password",textAlign: TextAlign.start,
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: ThemeColors.blackColor),),
                             getTextFormField(hint: "Password", controller: controller.passwordController, obscureText: true, validator: (value){
                               if(value!.isEmpty){
                                 return "Required!";
@@ -100,101 +98,50 @@ class LoginScreen extends GetView<LoginController> {
                               else{
                                 return null;
                               }
-                            },paddingTop:16.0),
-
-                            SizedBox(height: 22),
-                            Container(
-                              width: double.infinity,
-                              height: 53,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(8)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: dropshadowColor,
-                                    spreadRadius: 0,
-                                    blurRadius: 20,
-                                    offset: Offset(0, 4), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  FocusScope.of(context).unfocus();
-                                  controller.loginUser();
-                                },
-                                style: ButtonStyle(
-                                    elevation: MaterialStateProperty.all(0),
-                                    shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-                                    backgroundColor: MaterialStateProperty.all(primaryColor),
-                                    foregroundColor: MaterialStateProperty.all(whiteColor),
-                                    textStyle: MaterialStateProperty.all(const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18,
-                                    ))
-                                ),
-                                child: Text("Login"),
-                              ),
-                            ),
-                            SizedBox(height: 21),
-                            Container(
-                              child:  InkWell(
-                                onTap: (){
-                                    controller.forgotPasswordPage();
-                                },
-                                child: const Text('forgot your password?',style: TextStyle(color: Color(0xFF414B70)),),
-
-                              ),
-
-
-                            ),
-                            SizedBox(height:170 ,),
-                            Divider()
+                            },paddingTop:4.0),
                           ],
-
                         ),
-
-
                       ),
-                      SizedBox(height: 23,),
-                      Text("Dont have an account?", style: TextStyle(color:primaryColor ),),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 130),
                       Container(
                         width: double.infinity,
-                        height: 53,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                        height: 50,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
                           boxShadow: [
                             BoxShadow(
-                              color: dropshadowColor,
+                              color: ThemeColors.buttonDropShadowColor,
                               spreadRadius: 0,
                               blurRadius: 20,
-                              offset: Offset(0, 4), // changes position of shadow
+                              offset: Offset(0, 10), // changes position of shadow
                             ),
                           ],
                         ),
-
                         child: TextButton(
                           onPressed: () {
-                            Get.offNamed("/register");
+                            FocusScope.of(context).unfocus();
+                            //controller.loginUser();
                           },
                           style: ButtonStyle(
                               elevation: MaterialStateProperty.all(0),
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-                              backgroundColor: MaterialStateProperty.all(borderEnableColor),
-                              foregroundColor: MaterialStateProperty.all(primaryColor),
-                              textStyle: MaterialStateProperty.all(TextStyle(
+                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                              backgroundColor: MaterialStateProperty.all(ThemeColors.primaryColor),
+                              foregroundColor: MaterialStateProperty.all(ThemeColors.whiteColor),
+                              textStyle: MaterialStateProperty.all(const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,
                               ))
                           ),
-
-
-                          child: Text("Register"),
-
+                          child: const Text("Get Started"),
                         ),
-
                       ),
+                      const SizedBox(height: 24),
+                      InkWell(
+                        onTap: (){
 
+                        },
+                        child: const Text('or Registration?',style: TextStyle(color: ThemeColors.grayColor),),
+                      ),
                     ],
 
 

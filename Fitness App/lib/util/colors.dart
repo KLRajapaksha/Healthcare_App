@@ -8,4 +8,6 @@ class ThemeColors{
   static const lightGrayColor =  Color(0xFFEDEDF7);
   static const inputGrayColor =  Color(0xFFF8F9FD);
   static const whiteColor =  Color(0xFFFFFFFF);
+  static const buttonDropShadowColor =  Color(0x33060065);
+  static const redColor =  Color(0xFFEA526F);
 }
