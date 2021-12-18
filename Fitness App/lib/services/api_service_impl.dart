@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'api_service.dart';
 
 
-const BASE_URL = "http://3.139.55.67:4000/api/v1/mobile";
+const BASE_URL = "https://nameless-wildwood-07437.herokuapp.com/api/v1/mobile";
 
 class ApiServiceImpl implements ApiService{
 

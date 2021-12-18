@@ -38,6 +38,8 @@ dependencies:
   shared_preferences: ^2.0.9
   flutter_easyloading: ^3.0.3
   dio: ^4.0.3
+  numberpicker: ^2.1.1
+  syncfusion_flutter_sliders: ^19.4.38
 
 dev_dependencies:
   flutter_test:

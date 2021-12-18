@@ -19,18 +19,14 @@ class RegisterController extends GetxController{
   }
 
   final registerFormKey = GlobalKey<FormState>();
-  final fullNameController = TextEditingController();
-  final nicController = TextEditingController();
-  final npdController = TextEditingController();
+  final userNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
   @override
   void onClose() {
-    fullNameController.dispose();
-    nicController.dispose();
-    npdController.dispose();
+    userNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
@@ -43,20 +39,17 @@ class RegisterController extends GetxController{
 
     EasyLoading.show(status: "Loading...");
     final response = await _apiservice.postRequest("/user/register", {
-      'fullname': fullNameController.text.trim(),
-      'nic': nicController.text.trim(),
-      'regionid': npdController.text.split(" - ")[1].trim(),
+      'username': userNameController.text.trim(),
+      'email': emailController.text.trim(),
       'password': confirmPasswordController.text,
     }, registerErrorHandler);
 
     if (response?.statusCode == 200) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('AuthToken', response?.data['userId']);
       prefs.setString('USER_STATUS', "REGISTER_ONLY");
       EasyLoading.dismiss();
-      Get.offNamed("/otp_verify", arguments: {
-        'fullName': fullNameController.text,
-        'nic': nicController.text.trim()
-      });
+      Get.offNamed("/gender");
     }
 
     }
@@ -69,7 +62,7 @@ class RegisterController extends GetxController{
   void registerErrorHandler(DioError error){
     if (error.response?.statusCode == 409) {
       EasyLoading.dismiss();
-      Get.snackbar("You already have an existing account", "This NIC is already registered. please login into your existing account.", snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 2), colorText: redColor, icon: Icon(CupertinoIcons.person_circle_fill, color: redColor), backgroundColor: Colors.white70, overlayColor: Color(0xFF151929).withOpacity(0.4) , overlayBlur: 0.001, isDismissible: true, margin: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 10.0));
+      Get.snackbar("You already have an existing account", "This email is already registered. please login into your existing account.", snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 2), colorText: redColor, icon: Icon(CupertinoIcons.person_circle_fill, color: redColor), backgroundColor: Colors.white70, overlayColor: Color(0xFF151929).withOpacity(0.4) , overlayBlur: 0.001, isDismissible: true, margin: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 10.0));
       print('${error.response?.statusCode} : ${error.response}');
     } else{
       EasyLoading.dismiss();

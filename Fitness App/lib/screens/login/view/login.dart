@@ -120,7 +120,7 @@ class LoginScreen extends GetView<LoginController> {
                         child: TextButton(
                           onPressed: () {
                             FocusScope.of(context).unfocus();
-                            //controller.loginUser();
+                            controller.loginUser();
                           },
                           style: ButtonStyle(
                               elevation: MaterialStateProperty.all(0),
@@ -138,7 +138,7 @@ class LoginScreen extends GetView<LoginController> {
                       const SizedBox(height: 24),
                       InkWell(
                         onTap: (){
-
+                            Get.offNamed("/register");
                         },
                         child: const Text('or Registration?',style: TextStyle(color: ThemeColors.grayColor),),
                       ),
