@@ -3,6 +3,8 @@ import 'package:fitness_app/screens/age/view/age.dart';
 import 'package:fitness_app/screens/gender/binding/gender_binding.dart';
 import 'package:fitness_app/screens/gender/view/gender.dart';
 import 'package:fitness_app/screens/height/view/height.dart';
+import 'package:fitness_app/screens/home/binding/home_binding.dart';
+import 'package:fitness_app/screens/home/view/home.dart';
 import 'package:fitness_app/screens/selectgoal/view/selectgoal.dart';
 import 'package:fitness_app/screens/weight/view/weight.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/height", page: ()=>HeightScreen()),
         GetPage(name: "/weight", page: ()=>WeightScreen()),
         GetPage(name: "/selectgoal", page: ()=>SelectGoalScreen()),
+        GetPage(name: "/home", page: ()=>HomeScreen(), binding: HomeBinding()),
       ],
       initialRoute: "/login",
       builder: EasyLoading.init(),

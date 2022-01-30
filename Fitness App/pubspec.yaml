@@ -40,6 +40,7 @@ dependencies:
   dio: ^4.0.3
   numberpicker: ^2.1.1
   syncfusion_flutter_sliders: ^19.4.38
+  fluttericon: ^2.0.0
 
 dev_dependencies:
   flutter_test:

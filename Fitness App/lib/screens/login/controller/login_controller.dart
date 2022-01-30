@@ -46,9 +46,9 @@ class LoginController extends GetxController{
       }, loginErrorHandler);
 
       if (response?.statusCode == 200) {
-        await _saveMyAuthToken(response?.data['userId']);
+        await _saveMyAuthToken(response?.data['userId']?.toString() ?? "");
         EasyLoading.dismiss();
-        Get.offAllNamed("/gender");
+        Get.offAllNamed("/home");
       }
 
     }
@@ -58,7 +58,7 @@ class LoginController extends GetxController{
   _saveMyAuthToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('AuthToken', token);
-    prefs.setString('USER_STATUS', "LOGGED");
+   // prefs.setString('USER_STATUS', "LOGGED");
   }
 
   void loginErrorHandler(DioError error){

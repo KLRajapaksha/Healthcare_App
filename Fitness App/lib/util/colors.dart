@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class ThemeColors{
   static const primaryColor =  Color(0xFF5887F6);
+  static const secondaryColor =  Color(0x805887F6);
   static const blackColor =  Color(0xFF222222);
   static const grayColor =  Color(0xFF757682);
   static const ageGrayColor =  Color(0xFFCBCCDC);

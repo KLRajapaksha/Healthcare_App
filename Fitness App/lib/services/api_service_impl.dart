@@ -18,7 +18,7 @@ class ApiServiceImpl implements ApiService{
     _dio = Dio(BaseOptions(
       baseUrl: BASE_URL,
       headers: {
-        "Authorization" : "$myAuthToken",
+        "userId" : myAuthToken.isNotEmpty? int.parse(myAuthToken) : 0,
       },
     ));
 

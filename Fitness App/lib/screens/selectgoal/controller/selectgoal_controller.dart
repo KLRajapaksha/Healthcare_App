@@ -12,44 +12,36 @@ class SelectGoalController extends GetxController{
   final redColor = Color(0xFFFF6666);
 
   late ApiService _apiservice;
-  late final String userId;
 
   SelectGoalController() {
     _apiservice = Get.find<ApiServiceImpl>();
     _apiservice.init();
   }
 
-  _getMyAuthToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('AuthToken') ?? "";
-  }
-
   void updateProfileData(String gender, int age, double height, double weight, String selectedGoal) async {
 
     EasyLoading.show(status: "Loading...");
 
-    userId = await _getMyAuthToken();
     final response = await _apiservice.postRequest("/user/addUserProfileData", {
       "fullname": "",
       "age": age,
-      "height": height,
-      "weight": weight,
+      "height": height.toString(),
+      "weight": weight.toString(),
       "goal": selectedGoal,
       "gender": gender,
-      "userId": userId
     }, errorHandler);
 
     if (response?.statusCode == 200) {
       await _saveStatus();
       EasyLoading.dismiss();
-      Get.offAllNamed("/login");
+      Get.offAllNamed("/home");
     }
 
   }
 
   _saveStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('USER_STATUS', "ENTERED");
+    prefs.setString('USER_STATUS', "PROFILE_ADDED");
   }
 
   void errorHandler(DioError error){

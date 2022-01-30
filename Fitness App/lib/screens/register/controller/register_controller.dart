@@ -46,7 +46,7 @@ class RegisterController extends GetxController{
 
     if (response?.statusCode == 200) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('AuthToken', response?.data['userId']);
+      prefs.setString('AuthToken', response?.data['userId']?.toString() ?? "");
       prefs.setString('USER_STATUS', "REGISTER_ONLY");
       EasyLoading.dismiss();
       Get.offNamed("/gender");
